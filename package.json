@@ -1,11 +1,30 @@
 {
-  "name": "vibecraft-monolith",
-  "version": "4.0.0",
-  "description": "Autonomous Minecraft Architect - Full Monolith",
-  "main": "backend/server.js",
+  "name": "vibecraft-v5",
+  "version": "5.0.0",
+  "description": "VibeCraft SMP - Autonomous Architect - Unified Cloud Ready",
+  "main": "index.js",
   "scripts": {
-    "build": "npm install --prefix frontend && npm run build --prefix frontend && npm install --prefix backend",
-    "start": "node backend/server.js",
-    "dev": "npm run dev --prefix frontend & npm run dev --prefix backend"
+    "postinstall": "npm install --prefix site",
+    "build": "npm run build --prefix site",
+    "start": "node index.js",
+    "dev": "concurrently \"npm run dev --prefix site\" \"nodemon index.js\""
+  },
+  "dependencies": {
+    "express": "^4.21.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "better-sqlite3": "^11.5.0",
+    "axios": "^1.7.7",
+    "jsonwebtoken": "^9.0.2",
+    "bcryptjs": "^2.4.3",
+    "@google/generative-ai": "^0.21.0",
+    "form-data": "^4.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7",
+    "concurrently": "^9.1.0"
+  },
+  "engines": {
+    "node": ">=18.x"
   }
 }

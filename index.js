@@ -6,16 +6,16 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Middleware
+// 1. Core Middleware
 app.use(cors({ origin: '*', credentials: true }));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
-// Serve Frontend Static Files
-const DIST_PATH = path.join(__dirname, '../frontend/dist');
-app.use(express.static(DIST_PATH));
+// 2. Serve the Website (Frontend)
+const WEB_PATH = path.join(__dirname, 'site/dist');
+app.use(express.static(WEB_PATH));
 
-// Routes
+// 3. API Routes
 const { router: authRouter } = require('./routes/auth');
 const pterodactylRouter = require('./routes/pterodactyl');
 const vibeRouter = require('./routes/vibe');
@@ -24,25 +24,17 @@ app.use('/api/auth', authRouter);
 app.use('/api/pterodactyl', pterodactylRouter);
 app.use('/api/vibe', vibeRouter);
 
-// SPA Fallback: Send everything else to React
-app.get('*', (req, res) => {
-  res.sendFile(path.join(DIST_PATH, 'index.html'));
-});
-
-// Health check
+// 4. Healthy Heart
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', version: '1.0.0', name: 'VibeCraft API' });
+  res.json({ status: 'ok', architecture: 'v5.0.0 (Clean Monolith)' });
 });
 
-// Error handler
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({ error: 'Internal server error' });
+// 5. Fallback: Everything else goes to React
+app.get('*', (req, res) => {
+  res.sendFile(path.join(WEB_PATH, 'index.html'));
 });
 
 app.listen(PORT, () => {
-  console.log(`\n🎮 VibeCraft API running on http://localhost:${PORT}`);
-  console.log(`📡 Health check: http://localhost:${PORT}/api/health\n`);
+  console.log(`\n🏗️ VibeCraft Cloud Reactor is live on Port ${PORT}`);
+  console.log(`📡 Deployment Link: http://localhost:${PORT}\n`);
 });
-
-module.exports = app;

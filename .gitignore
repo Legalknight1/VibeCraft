@@ -1,0 +1,14 @@
+# VibeCraft Ignore List
+node_modules/
+.env
+.DS_Store
+dist/
+build/
+*.db
+*.log
+.gemini/
+.agent/
+backend/*.db
+frontend/dist/
+frontend/node_modules/
+backend/node_modules/

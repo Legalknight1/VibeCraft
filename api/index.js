@@ -12,13 +12,13 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
 // 2. Serve the Website (Frontend)
-const WEB_PATH = path.join(__dirname, 'site/dist');
+const WEB_PATH = path.join(__dirname, '../site/dist');
 app.use(express.static(WEB_PATH));
 
 // 3. API Routes
-const { router: authRouter } = require('./routes/auth');
-const pterodactylRouter = require('./routes/pterodactyl');
-const vibeRouter = require('./routes/vibe');
+const { router: authRouter } = require('../routes/auth');
+const pterodactylRouter = require('../routes/pterodactyl');
+const vibeRouter = require('../routes/vibe');
 
 app.use('/api/auth', authRouter);
 app.use('/api/pterodactyl', pterodactylRouter);
@@ -26,13 +26,16 @@ app.use('/api/vibe', vibeRouter);
 
 // 4. Healthy Heart
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', architecture: 'v5.0.0 (Clean Monolith)' });
+  res.json({ status: 'ok', architecture: 'v7.0.0 (Universal Monolith)' });
 });
 
 // 5. Fallback: Everything else goes to React
 app.get('*', (req, res) => {
   res.sendFile(path.join(WEB_PATH, 'index.html'));
 });
+
+// For Serverless Hosts (Vercel/Netlify)
+module.exports = app;
 
 app.listen(PORT, () => {
   console.log(`\n🏗️ VibeCraft Cloud Reactor is live on Port ${PORT}`);

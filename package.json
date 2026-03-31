@@ -2,12 +2,12 @@
   "name": "vibecraft-v5",
   "version": "5.0.0",
   "description": "VibeCraft SMP - Autonomous Architect - Unified Cloud Ready",
-  "main": "index.js",
+  "main": "api/index.js",
   "scripts": {
     "postinstall": "npm install --prefix site",
     "build": "npm run build --prefix site",
-    "start": "node index.js",
-    "dev": "concurrently \"npm run dev --prefix site\" \"nodemon index.js\""
+    "start": "node api/index.js",
+    "dev": "concurrently \"npm run dev --prefix site\" \"nodemon api/index.js\""
   },
   "dependencies": {
     "express": "^4.21.1",

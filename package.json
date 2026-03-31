@@ -1,0 +1,11 @@
+{
+  "name": "vibecraft-monolith",
+  "version": "4.0.0",
+  "description": "Autonomous Minecraft Architect - Full Monolith",
+  "main": "backend/server.js",
+  "scripts": {
+    "build": "npm install --prefix frontend && npm run build --prefix frontend && npm install --prefix backend",
+    "start": "node backend/server.js",
+    "dev": "npm run dev --prefix frontend & npm run dev --prefix backend"
+  }
+}

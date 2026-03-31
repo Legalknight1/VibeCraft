@@ -11,6 +11,10 @@ app.use(cors({ origin: '*', credentials: true }));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
+// Serve Frontend Static Files
+const DIST_PATH = path.join(__dirname, '../frontend/dist');
+app.use(express.static(DIST_PATH));
+
 // Routes
 const { router: authRouter } = require('./routes/auth');
 const pterodactylRouter = require('./routes/pterodactyl');
@@ -19,6 +23,11 @@ const vibeRouter = require('./routes/vibe');
 app.use('/api/auth', authRouter);
 app.use('/api/pterodactyl', pterodactylRouter);
 app.use('/api/vibe', vibeRouter);
+
+// SPA Fallback: Send everything else to React
+app.get('*', (req, res) => {
+  res.sendFile(path.join(DIST_PATH, 'index.html'));
+});
 
 // Health check
 app.get('/api/health', (req, res) => {
